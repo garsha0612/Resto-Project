@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Restaurant Menu</title>
+        <style>
+        body {
+            font-family: Cambria, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: rgb(106, 57, 57);
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* Navigation bar styles */
+        header {
+            background: linear-gradient(90deg, wheat, rgb(105, 60, 60));
+            color: black;
+            padding: 1em 0;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li:hover {
+            transform: scale(1.1);
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #ffeb3b;
+        }
+
+        #search {
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        /* Hero Section */
+        #hero {
+            background: url('https://source.unsplash.com/1600x900/?restaurant,food') no-repeat center center/cover;
+            color: #fff;
+            padding: 5px 0;
+            text-align: center;
+        }
+
+        .btn {
+            background: #000000;
+            color: #fff;
+            padding: 10px 10px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        section {
+            padding: 20px 0;
+        }
+
+        /* Menu grid with hover effect */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .menu-item {
+            background: #fff;
+            border: 2px solid black;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            transition: box-shadow 0.3s, transform 0.3s;
+            cursor: pointer;
+        }
+
+        .menu-item:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            transform: scale(1.05);
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            height: 50%;
+        }
+
+        /* Filter buttons */
+        .filter-buttons {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .filter-buttons select {
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .filter-buttons button {
+            background: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .filter-buttons button:hover {
+            background: #45a049;
+        }
+
+        .filter-buttons button.active {
+            background: #ffa500;
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #contact {
+            margin-top: 10px;
+        }
+
+        @media (max-width: 600px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+
+            .container {
+                width: 95%;
+            }
+
+            #search {
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
+
+        @media (min-width: 769px) {
+            #search {
+                width: 200px;
+            }
+        }
+        </style>
+        <header>
+            <div class="container">
+                <h1 style="text-align: center; font-family: Cambria, Georgia, serif; font-size: 50px;"><b>Festyn Royale Restaurant</b></h1>
+                <br>
+                <nav>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#menu">Menu</a></li>
+                        <li><a href="#order">Order Online</a></li>
+                        <li><input type="text" id="search" placeholder="Search..."></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+    </head>
+    <body>
+        <section id="hero">
+            <b>
+                <h2>Welcome to Festyn Royale Restaurant</h2>
+                <p>Delicious meals made with love!<br>Our Restaurant offers a wide variety of dishes with authenticity.</p>
+            </b>
+            <a href="#menu" class="btn">View Menu</a>
+        </section>
+
+        <!-- Filter Dropdowns for Veg and Non-Veg -->
+        <section id="menu" class="container">
+            <h2 style="font-size: 50px; color: wheat;">Menu</h2>
+            <div class="filter-buttons">
+                <!-- Veg button and dropdown -->
+                <button class="active" onclick="filterVegItems()">Veg Menu</button>
+                <select id="veg-category" onchange="filterVegCategory()">
+                    <option value="all">All Veg Dishes</option>
+                    <option value="indian">Indian Veg</option>
+                    <option value="continental">Continental Veg</option>
+                    <option value="chinese">Chinese Veg</option>
+                    <option value="desserts">Desserts</option>
+                    <option value="beverages">Beverages</option>
+                    <option value="bread">Breads</option>
+                </select>
+                
+                <!-- Non-Veg button and dropdown -->
+                <button class="active" onclick="filterNonVegItems()">Non-Veg Menu</button>
+                <select id="nonveg-category" onchange="filterNonVegCategory()">
+                    <option value="all">All Non-Veg Dishes</option>
+                    <option value="indian">Indian Non-Veg</option>
+                    <option value="continental">Continental Non-Veg</option>
+                    <option value="chinese">Chinese Non-Veg</option>
+
+                </select>
+            </div>
+            <div class="menu-grid" id="menu-grid">
+                <!-- Menu items will be added dynamically -->
+            </div>
+        </section>
+
+        <section id="order" class="container" style="color: white;">
+            <h2>Your Order</h2>
+            <ul id="order-list"></ul>
+            <button onclick="placeOrder()">Place Order</button>
+        </section>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2024 Festyn Royale Restaurant. All rights reserved.</p>
+                <div id="contact">
+                    <h3>Contact Us</h3>
+                    <p>Email: info@festynroyale.com</p>
+                    <p>Phone: +91 1234567890</p>
+                    <p>Address: 123 Festyn Street, Food City, India</p>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+        let orderList = [];
+
+        const menuItems = [
+            // Veg Indian Dishes
+            { name: "Shahi Paneer", price: 349, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRJJQdhd6y1nLzahE-sgoORWohVX7ublFJdg&s", category: "indian", type: "veg" },
+
+            { name: "Veg Pulao", price: 249, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRswFDl2pmKLNhHdAt1DxYOMSjPClRSOLcJ-w&s", category: "indian", type: "veg" },
+
+            { name: "Tandoori Platter  (serves 1-2)", price: 399, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTR3Prm8E0r4EPc9gq5tEJJg_hWD95MfCuheg&s", category: "indian", type: "veg"  },
+
+            { name: "Paneer Tikka", price: 399, img: "https://sharethespice.com/wp-content/uploads/2024/02/Paneer-Tikka-Featured.jpg", category: "indian", type: "veg"  },
+
+            { name: "Chhole Bhature (2 pieces)", price: 249, img: "https://images.squarespace-cdn.com/content/v1/5ec30182cff13b4331c5384d/1677207139729-KTC6G6TMQZ7CZ5HO4W8D/IMG_0182.jpeg", category: "indian", type: "veg"  },
+
+            { name: "Dal Makhani  (serves 2-3)", price: 299, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8wQ_HXwddTaycCvmN_02eC0CrhL2lNQ9mLg&s", category: "indian", type: "veg"  },
+            
+            // Veg Continental Dishes
+            { name: "Alfredo Pasta", price: 499, img: "https://www.allrecipes.com/thmb/9aWCdbfttLcsW2dFQWwVQBGJM3E=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/AR-236973-CreamyAlfredoSauce-0238-4x3-1-01e7091f47ae452d991abe32cbed5921.jpg", category: "continental", type: "veg" },
+
+            { name: "Arrabiatta Pasta", price: 489, img: "https://www.recipetineats.com/uploads/2023/10/Penne-Arrabbiata-4.jpg", category: "continental", type: "veg" },
+
+            { name: "Vegetable Pasta", price: 419, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDh_JNeDTKKhAOCNbtwoCZBESHgSYicFb3xQ&s",category: "continental", type: "veg" },
+
+            { name: "Caprese Salad", price: 349, img: "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2019/07/Caprese-Salad-main-1.jpg", category: "continental", type: "veg" },
+
+            { name: "Greek Salad", price: 379, img: "https://i2.wp.com/www.downshiftology.com/wp-content/uploads/2018/08/Greek-Salad-6-1.jpg", category: "continental", type: "veg" },
+
+            { name: "Garlic Bread", price: 399, img: "https://spicecravings.com/wp-content/uploads/2021/09/Air-Fryer-Garlic-Bread-Featured.jpg", category: "continental", type: "veg" },
+
+            { name: "Margherita Pizza", price: 249, img: "https://cdn.shopify.com/s/files/1/0274/9503/9079/files/20220211142754-margherita-9920_5a73220e-4a1a-4d33-b38f-26e98e3cd986.jpg?v=1723650067",category: "continental", type: "veg" },
+
+            { name: "Pesto Pizza", price: 349, img: "https://cdn.loveandlemons.com/wp-content/uploads/2022/07/pesto-pizza-toppings.jpg", category: "continental", type: "veg" },
+
+            { name: "Mushroom sauce Pizza", price: 319, img: "https://cdn.shopify.com/s/files/1/0401/3873/5766/files/IMG_8487_480x480.jpg?v=1605405125", category: "continental", type: "veg" },
+
+            { name: "Farmhouse Pizza", price: 399, img: "https://content.jdmagicbox.com/comp/jalandhar/q8/0181px181.x181.221006005551.y3q8/catalogue/the-pizza-supplier-model-town-jalandhar-pizza-outlets-mry1eqp21k.jpg", category: "continental", type: "veg" },
+
+            { name: "Tandoori Paneer Pizza", price: 389, img: "https://dbigmart.com/wp-content/uploads/2022/10/7878.jpg", category: "continental", type: "veg" },
+
+            { name: "Spicy Veg Pizza", price: 389, img: "https://cookieandkate.com/images/2020/10/best-veggie-pizza-recipe-1.jpg", category: "continental", type: "veg" },
+
+            // Veg Chinese Dishes
+            { name: "Hakka Noodles", price: 199, img: "https://www.chilipeppermadness.com/wp-content/uploads/2023/06/Gochujang-Noodles-Recipe1.jpg", category: "chinese", type: "veg" },
+
+            { name: "Honey Chilly Potato", price: 399, img: "https://i.pinimg.com/736x/5d/bd/9a/5dbd9a2f5a44fe6a6edd933e2ccd4ed4.jpg", category: "chinese", type: "veg" },
+            
+            { name: "Manchurian with gravy", price: 219, img: "https://khaddoroshik.com/wp-content/uploads/2023/12/Veg-Manchurian.webp", category: "chinese", type: "veg" },
+            
+            { name: "Chilly paneer", price: 279, img: "https://i0.wp.com/blendofspicesbysara.com/wp-content/uploads/2022/03/PXL_20220220_230725266.PORTRAIT-01.jpeg?w=800&ssl=1", category: "chinese", type: "veg" },
+            
+            { name: "Veg dumplings (8 pieces)", price: 199, img: "https://www.momodelights.com/wp-content/uploads/2024/07/Classic-Veg-Fried-Momos.jpg",category: "chinese", type: "veg" },
+
+            // Breads
+            { name: "Butter Naan", price: 99, img: "https://foodess.com/wp-content/uploads/2023/02/Butter-Naan-2.jpg", category: "bread" , type:"veg" },
+
+            { name: "Tandoori Roti", price: 79, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMbbh04lsttJ0bVAl538JqmrSiVyGc5_XPYg&s", category: "bread", type:"veg" },
+
+            // Veg Beverages
+            { name: "Masala Chai", price: 119, img: "https://masalaandchai.com/wp-content/uploads/2021/07/Masala-Chai.jpg", category: "beverages" , type:"veg" },
+            
+            { name: "Mojito", price: 149, img: "https://www.amulcafe.in/wp-content/uploads/2024/03/1.png", category: "beverages" , type: "veg" },
+            
+            { name: "Hot chocolate", price: 199, img: "https://feelgoodfoodie.net/wp-content/uploads/2021/11/how-to-make-hot-chocolate-7.jpg", category: "beverages" , type: "veg" },
+            
+            { name: "Cold Coffee", price: 199, img: "https://bakingmischief.com/wp-content/uploads/2022/03/coffee-milkshake-square.jpg", category: "beverages" , type: "veg" },
+
+
+            // Veg Desserts
+            { name: "Rasmalai (2pieces)", price: 119, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGtEhwMKwgEzANuefIm_UwleAqN6cg0RDm2w&s", category: "desserts", type: "veg" },
+
+            { name: "Gulab Jamun", price: 149, img: "https://www.gourmetwala.net/wp-content/uploads/2018/08/gulabjamun-417.png", category: "desserts", type: "veg" },
+
+            { name: "Classic cheesecake pastry", price: 199, img: "https://www.allrecipes.com/thmb/5_r5-GuF1KQxOs2nrW4EF4F-4ak=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/AR-155222-philadelphia-classic-cheesecake-4x3-hero-5e8c2187a57a4016b5934058ad7d9b5e.jpg", category: "desserts", type: "veg" },
+
+            { name: "Choco truffle pastry", price: 199, img: "https://theobroma.in/cdn/shop/files/EgglessDutchTrufflePastry.jpg?v=1711099798", category: "desserts", type: "veg" },
+
+            { name: "Choco Lava cake", price: 189, img: "https://spicesnflavors.com/wp-content/uploads/2017/12/chocolate-lava-cake-1-min.jpg",category: "desserts", type: "veg"  },
+
+            { name: "Red Velvet Pastry", price: 199, img: "https://merwans.co.in/image/cache/catalog/pastry/035%20Red%20Velvet%20Pastry-1000x1000.png", category: "desserts", type: "veg" },
+
+            { name: "Fruit pudding", price: 199, img: "https://tastesbetterfromscratch.com/wp-content/uploads/2017/03/Fruit-Trifle.jpg",  category: "desserts", type: "veg"},
+
+            { name: "Brownie sundae", price: 199, img: "https://www.thereciperebel.com/wp-content/uploads/2022/05/brownie-sundae-TRR-1200-25-of-40.jpg",category: "desserts", type: "veg"  },
+
+            { name: "Apple pie with almond ice-cream (serves 2)", price: 219, img: "https://onedishkitchen.com/wp-content/uploads/2018/10/apple-pie-one-dish-kitchen-1-1200x1634.jpg", category: "desserts", type: "veg" },
+
+            // Non-Veg Indian Dishes
+            { name: "Chicken Biryani", price: 349, img: "https://c.ndtvimg.com/2023-03/7n07er7o_biryani_625x300_09_March_23.jpg", category: "indian", type: "nonveg" },
+
+            { name: "Butter Chicken", price: 399, img: "https://www.maspices.co.in/wp-content/uploads/2022/02/butter-chicken-.jpg", category: "indian", type: "nonveg" },
+
+            { name: "Chicken Tandoori Platter  (serves 1-2)", price: 449, img: "https://redchillezlargo.com/wp-content/uploads/2024/08/Tandoori-Mix-Platter.jpg", category: "indian", type: "nonveg" },
+
+            // Non-veg continental dishes
+            { name: "Chicken Pasta", price: 589, img: "https://reciperunner.com/wp-content/uploads/2021/06/balsamic-grilled-chicken-tomato-basil-pasta-photo.jpg", category: "continental", type:"nonveg" },
+            
+            { name: "Chicken Loaded Pizza", price: 449, img: "https://cdn.dotpe.in/longtail/store-items/6385438/3dJpkuAN.jpeg", category: "continental", type:"nonveg" },
+
+            { name: "Chicken sausage Pizza", price: 349, img: "https://cdn.dotpe.in/longtail/store-items/6385438/TUa6wZEx.jpeg", category: "continental", type:"nonveg" },
+
+            // Non-veg chinese dishes
+            { name: "Chicken dumplings (6 pieces)", price: 199, img: "https://media-cdn.tripadvisor.com/media/photo-s/1b/77/10/07/10-deep-fried-chicken.jpg", category:"chinese", type: "nonveg" },
+
+        ];
+
+        function displayMenuItems(items) {
+            const menuGrid = document.getElementById('menu-grid');
+            menuGrid.innerHTML = '';
+            items.forEach(item => {
+                const menuItem = document.createElement('div');
+                menuItem.classList.add('menu-item');
+                menuItem.setAttribute('data-category', item.category);
+                menuItem.innerHTML = `
+                    <img src="${item.img}" alt="${item.name}">
+                    <h3>${item.name}</h3>
+                    <p>Price: ₹${item.price}</p>
+                    <button onclick="addToOrder('${item.name}', ${item.price})">Add to Order</button>
+                `;
+                menuGrid.appendChild(menuItem);
+            });
+        }
+
+        // Filter functions for Veg and Non-Veg
+        function filterVegItems() {
+            const vegItems = menuItems.filter(item => item.type === 'veg');
+            displayMenuItems(vegItems);
+        }
+
+        function filterNonVegItems() {
+            const nonVegItems = menuItems.filter(item => item.type === 'nonveg');
+            displayMenuItems(nonVegItems);
+        }
+
+        function filterVegCategory() {
+            const category = document.getElementById('veg-category').value;
+            const filteredItems = category === 'all' ? menuItems.filter(item => item.type === 'veg') : menuItems.filter(item => item.category === category && item.type === 'veg');
+            displayMenuItems(filteredItems);
+        }
+
+        function filterNonVegCategory() {
+            const category = document.getElementById('nonveg-category').value;
+            const filteredItems = category === 'all' ? menuItems.filter(item => item.type === 'nonveg') : menuItems.filter(item => item.category === category && item.type === 'nonveg');
+            displayMenuItems(filteredItems);
+        }
+        
+        let orderlist = [];
+        function addToOrder(itemName, itemPrice) {
+            orderList.push({ name: itemName, price: itemPrice });
+            updateOrderList();}
+            
+        function removeFromOrder(index) {
+            orderList.splice(index, 1); // Remove the item at the given index
+            updateOrderList();}
+            
+            
+        function updateOrderList() {
+            const orderListElement = document.getElementById('order-list');
+            orderListElement.innerHTML = '';
+            orderList.forEach((orderItem, index) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${orderItem.name} - ₹${orderItem.price}`;
+
+        // "Remove" button for each item
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove';
+        removeButton.onclick = () => removeFromOrder(index); // Set up the remove function
+        listItem.appendChild(removeButton);
+        orderListElement.appendChild(listItem);
+    });
+}
+
+
+        function placeOrder() {
+            alert('Order placed successfully!');
+            orderList = [];
+            updateOrderList();}
+
+        // Display Veg items by default
+        filterVegItems();
+        </script>
+    </body>
+</html>
